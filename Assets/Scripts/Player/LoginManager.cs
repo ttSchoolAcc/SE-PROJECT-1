@@ -2,18 +2,22 @@ using UnityEngine;
 using TMPro;
 using System.IO;
 using System.Collections.Generic;
+//using System.Diagnostics;
 
 [System.Serializable]
 class UserInfo
 {
-    public UserInfo(string newUserName, string newPassword)
+    public UserInfo(string newUserName, string newPassword, int newAccountID)
     {
         userName = newUserName;
         passWord = newPassword;
+        accountID = newAccountID;
     }
 
     public string userName;
     public string passWord;
+
+    public int accountID;
 }
 
 class UserInfoJSONArray
@@ -29,13 +33,20 @@ public class LoginManager : MonoBehaviour
 {
     public TextMeshProUGUI usernameText;
     public TextMeshProUGUI passwordText;
-    string jsonPath;
 
+    [SerializeField] GameObject loginErrorMess;
+    [SerializeField] GameObject bulletinBoard;
+    [SerializeField] GameObject loginScreen;
+
+    string jsonPath;
     List<UserInfo> userInfoList = new List<UserInfo>();
+
+    [SerializeField] UserInfo currAccount;
 
     void Awake()
     {
         jsonPath = Path.Combine(Application.persistentDataPath, "UserDataBase.json");
+        Debug.Log(jsonPath);
 
         if (File.Exists(jsonPath))
         {
@@ -79,12 +90,24 @@ public class LoginManager : MonoBehaviour
 
     public void BUTTONLoginCheck()
     {
-        Debug.Log(Application.persistentDataPath);
+        foreach (UserInfo currUser in userInfoList)
+        {
+            if (usernameText.text == currUser.userName && passwordText.text == currUser.passWord)// && currUser.passWord == newUser.passWord)
+            {
+                //UIManager.
+                loginScreen.SetActive(false);
+                bulletinBoard.SetActive(true);
+
+                currAccount = currUser;
+                return;
+            }
+        }
+        loginErrorMess.SetActive(true);
     }
 
     public void BUTTONRegister()
     {
-        UserInfo newUser = new UserInfo(usernameText.text, passwordText.text);
+        UserInfo newUser = new UserInfo(usernameText.text, passwordText.text, userInfoList.Count);
 
         bool ifExists = false;
         foreach (UserInfo currUser in userInfoList)
