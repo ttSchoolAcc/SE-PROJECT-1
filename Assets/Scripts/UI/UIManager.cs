@@ -9,7 +9,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject allCanvasParent;
     [SerializeField] List<GameObject> allCanvases = new List<GameObject>();
 
-    private void Awake()
+    void Awake()
     {
         if (instance != null && instance != this)
         {
@@ -20,9 +20,9 @@ public class UIManager : MonoBehaviour
             instance = this;
         }
 
-        foreach(GameObject currCanvas in allCanvasParent.transform)
+        foreach(Transform currCanvas in allCanvasParent.transform)
         {
-            allCanvases.Add(currCanvas);
+            allCanvases.Add(currCanvas.gameObject);
         }
     }
     

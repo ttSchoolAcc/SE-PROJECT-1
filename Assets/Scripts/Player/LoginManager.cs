@@ -5,7 +5,7 @@ using System.Collections.Generic;
 //using System.Diagnostics;
 
 [System.Serializable]
-class UserInfo
+public class UserInfo
 {
     public UserInfo(string newUserName, string newPassword, int newAccountID)
     {
@@ -40,11 +40,20 @@ public class LoginManager : MonoBehaviour
 
     string jsonPath;
     List<UserInfo> userInfoList = new List<UserInfo>();
+    [SerializeField] TextMeshProUGUI currUserText;
 
-    [SerializeField] UserInfo currAccount;
+    [Space(20)]
+    public UserInfo currAccount;
+
+    public static LoginManager instance;
 
     void Awake()
     {
+        if(instance == null)
+        {
+            instance = this;
+        }
+
         jsonPath = Path.Combine(Application.persistentDataPath, "UserDataBase.json");
         Debug.Log(jsonPath);
 
@@ -81,9 +90,9 @@ public class LoginManager : MonoBehaviour
             }
         }
 
-#if UNITY_EDITOR
-        UnityEditor.EditorUtility.SetDirty(this);
-#endif
+// #if UNITY_EDITOR
+//         UnityEditor.EditorUtility.SetDirty(this);
+// #endif
     }
 
 
@@ -92,6 +101,7 @@ public class LoginManager : MonoBehaviour
     {
         foreach (UserInfo currUser in userInfoList)
         {
+            //This is if you successfully logged in
             if (usernameText.text == currUser.userName && passwordText.text == currUser.passWord)// && currUser.passWord == newUser.passWord)
             {
                 //UIManager.
@@ -99,6 +109,8 @@ public class LoginManager : MonoBehaviour
                 bulletinBoard.SetActive(true);
 
                 currAccount = currUser;
+                currUserText.text = currUser.userName;
+
                 return;
             }
         }
@@ -115,8 +127,8 @@ public class LoginManager : MonoBehaviour
             if (currUser.userName == newUser.userName)// && currUser.passWord == newUser.passWord)
                 ifExists = true;
         }
-        
-        if(!ifExists)
+
+        if (!ifExists)
         {
             userInfoList.Add(newUser);
             WriteData();
