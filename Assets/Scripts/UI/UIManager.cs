@@ -1,10 +1,14 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Animations;
+using UnityEngine.Timeline;
 
 public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
+    public GameObject moveTickPrefab;
+    [SerializeField] Transform moveTickParent;
 
     [SerializeField] GameObject allCanvasParent;
     [SerializeField] List<GameObject> allCanvases = new List<GameObject>();
@@ -25,7 +29,7 @@ public class UIManager : MonoBehaviour
             allCanvases.Add(currCanvas.gameObject);
         }
     }
-    
+
     public void EnableCanvas(GameObject canvas)
     {
         foreach (GameObject currCanvas in allCanvases)
@@ -34,5 +38,24 @@ public class UIManager : MonoBehaviour
         }
 
         canvas.SetActive(true);
+    }
+
+    public void ClearMarkers()
+    {
+        while(moveTickParent.childCount > 0)
+        {
+            DecrementMarkerCount();
+        }
+    }
+
+    public void DecrementMarkerCount()
+    {
+        if (moveTickParent.childCount > 0)
+            Destroy(moveTickParent.GetChild(moveTickParent.childCount - 1).gameObject);
+    }
+    
+    public void IncrementMarkerCount()
+    {
+        Instantiate(moveTickPrefab, moveTickParent);
     }
 }

@@ -45,6 +45,11 @@ public class PlayerControl : MonoBehaviour
     
     void SelectBoardThings()
     {
+        //If you don't have enoguh moves
+        if (LoginManager.instance.currAccount.numOfMoves <= 0)
+            return;
+
+
         RaycastHit2D hit = Physics2D.Raycast(new Vector2(mainCam.ScreenToWorldPoint(Input.mousePosition).x, mainCam.ScreenToWorldPoint(Input.mousePosition).y), Vector2.zero, 0f);
 
         if (hit.collider != null)
@@ -53,14 +58,16 @@ public class PlayerControl : MonoBehaviour
             PlayerPawn currPawn = currTile.occupyingPlayer;
             if (selectedPlayer != null && (currTile != null || currPawn.team != playerTeam))///If you select a valid move
             {
-                if(math.abs(currTile.terrainPosX - selectedPlayer.posX) <= moveRange && math.abs(currTile.terrainPosY - selectedPlayer.posY) <= moveRange)
+                if (math.abs(currTile.terrainPosX - selectedPlayer.posX) <= moveRange && math.abs(currTile.terrainPosY - selectedPlayer.posY) <= moveRange)
                 {
-                    if(currPawn != null && currPawn.team != playerTeam) //When capturing enemy
+                    if (currPawn != null && currPawn.team != playerTeam) //When capturing enemy
                     {
                         Destroy(currPawn.gameObject);
                     }
                     selectedPlayer.MovePlayer(currTile);
                 }
+
+                LoginManager.instance.PlayerHasMoved();
                 Deselect();
             }
             else if (currPawn != null)///If you select a player
