@@ -69,7 +69,6 @@ public class LoginManager : MonoBehaviour
         if (File.Exists(jsonPath))
         {
             ReadData();
-            currAccount = userInfoList[0];
         }
         else
         {
@@ -78,10 +77,7 @@ public class LoginManager : MonoBehaviour
         }
 
         RefreshNumOfMoves(); /////////////////////////////////////////////////////////REMOVE LATER, THIS IS FOR DEMONSTRATION
-
-        UIManager.instance.ClearMarkers();
-        for (int i = 0; i < currAccount.numOfMoves; i++)
-            UIManager.instance.IncrementMarkerCount();
+        ChangeAccount(userInfoList[0]);
     }
 
     void FirstDataBaseCreation()

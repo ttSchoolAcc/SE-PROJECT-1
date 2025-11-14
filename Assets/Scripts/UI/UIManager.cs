@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Animations;
+//using UnityEditor.Animations;
 using UnityEngine.Timeline;
 
 public class UIManager : MonoBehaviour
@@ -44,14 +44,18 @@ public class UIManager : MonoBehaviour
     {
         while(moveTickParent.childCount > 0)
         {
-            DecrementMarkerCount();
+            DecrementMarkerCount(); //BE CAREFUL, destroy is not immediate, will inf loop if not handled
         }
     }
 
     public void DecrementMarkerCount()
     {
         if (moveTickParent.childCount > 0)
-            Destroy(moveTickParent.GetChild(moveTickParent.childCount - 1).gameObject);
+        {
+            GameObject markToDestroy = moveTickParent.GetChild(moveTickParent.childCount - 1).gameObject;
+            markToDestroy.transform.SetParent(null); //This "instantly removes" the child so the loop for clearmarkers works()
+            Destroy(markToDestroy);
+        }
     }
     
     public void IncrementMarkerCount()
