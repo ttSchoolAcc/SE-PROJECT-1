@@ -171,7 +171,10 @@ public class LoginManager : MonoBehaviour
     {
         foreach (UserInfo user in userInfoList)
         {
-            user.numOfMoves = MAX_MOVES_PER_TIME_PERIOD;
+            if(user.userName == "ADMIN")
+                user.numOfMoves = 100;
+            else
+                user.numOfMoves = MAX_MOVES_PER_TIME_PERIOD;
             WriteData();
         }
     }
