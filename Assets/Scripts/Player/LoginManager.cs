@@ -94,6 +94,8 @@ public class LoginManager : MonoBehaviour
     }
     
 
+    
+
     [ContextMenu("Write Data")]
     private void WriteData()
     {
@@ -102,6 +104,8 @@ public class LoginManager : MonoBehaviour
         string json = JsonUtility.ToJson(userInfoFromJSON, true);
         File.WriteAllText(jsonPath, json);
     }
+
+
 
     //This is where we add all accounts from the save json to the running game.
     [ContextMenu("Read Data")]
