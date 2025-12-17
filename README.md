@@ -29,7 +29,8 @@ The game is a multiplayer game where players interact on a shared grid. Each pla
 -----------------------------------------------------------------------------------------------------------------------------
 
 ## Documentation 
-Detailed project documentation can be found in ...
+Detailed project documentation can be found in here:
+- [Agile Planning Document](docs/CSCI3340_FinalProject_AgilePlanning.pdf)
 
 -----------------------------------------------------------------------------------------------------------------------------
 
