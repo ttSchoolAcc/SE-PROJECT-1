@@ -2,6 +2,8 @@
 
 A multiplayer grid-based video game that requires players to rely on teamwork and communication through posts, chats, and talking. Capture enemy pawns by moving on a grid, but you can only move once.
 
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/285066eb-5861-4bb7-9809-7e16763e5561" />
+
 -----------------------------------------------------------------------------------------------------------------------------
 
 ## Overview
@@ -19,7 +21,7 @@ The game is a multiplayer game where players interact on a shared grid. Each pla
 -----------------------------------------------------------------------------------------------------------------------------
 
 ## Technology Stack
-- **Game Egnine / Frontend:** Unity
+- **Game Engine / Frontend:** Unity
 - **Programming Language:** C#
 - **Data Storage**: JSON file (for user IDs, usernames, and passwords)
 - **Version Control:** Git & GitHub
@@ -27,6 +29,7 @@ The game is a multiplayer game where players interact on a shared grid. Each pla
 -----------------------------------------------------------------------------------------------------------------------------
 
 ## Documentation 
+Detailed project documentation can be found in ...
 
 -----------------------------------------------------------------------------------------------------------------------------
 
