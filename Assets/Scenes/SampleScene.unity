@@ -1715,6 +1715,8 @@ MonoBehaviour:
   moveTickParent: {fileID: 958491545}
   allCanvasParent: {fileID: 142182653}
   allCanvases: []
+  background: {fileID: 1181186537}
+  fadeDuration: 0.5
 --- !u!1 &366915231
 GameObject:
   m_ObjectHideFlags: 0
@@ -9347,6 +9349,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1547410288}
+  - component: {fileID: 1547410289}
   m_Layer: 0
   m_Name: MANAGERS
   m_TagString: Untagged
@@ -9375,6 +9378,18 @@ Transform:
   - {fileID: 1877247328}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1547410289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1547410287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fe1bcb98918c1842bacf9a2c7d4f984, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1573673399
 GameObject:
   m_ObjectHideFlags: 0

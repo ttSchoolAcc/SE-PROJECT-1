@@ -4,6 +4,7 @@ using System.Collections.Generic;
 //using UnityEditor.Animations;
 using UnityEngine.Timeline;
 //using System.Numerics;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -13,6 +14,9 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] GameObject allCanvasParent;
     [SerializeField] List<GameObject> allCanvases = new List<GameObject>();
+
+    [SerializeField] Image background;
+    [SerializeField] float fadeDuration = 0.5f; // Adjust for faster/slower fades
 
     void Awake()
     {
@@ -31,14 +35,67 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    //public void EnableCanvas(GameObject canvas)
+    //{
+    //    foreach (GameObject currCanvas in allCanvases)
+    //    {
+    //        currCanvas.SetActive(false);
+    //    }
+
+    //    canvas.SetActive(true);
+    //}
+
     public void EnableCanvas(GameObject canvas)
     {
         foreach (GameObject currCanvas in allCanvases)
-        {
             currCanvas.SetActive(false);
-        }
 
         canvas.SetActive(true);
+
+        // Determine target color
+        Color32 targetColor;
+
+        switch (canvas.name)
+        {
+            case "Login":
+                targetColor = new Color32(26, 43, 76, 255); // Dark Blue
+                break;
+
+            case "Bulletin Board":
+                targetColor = new Color32(58, 79, 65, 255); // Deep Olive
+                break;
+
+            case "Chat":
+                targetColor = new Color32(74, 63, 85, 255); // Desaturated Purple
+                break;
+
+            case "Account":
+                targetColor = new Color32(46, 46, 51, 255); // Graphite Gray
+                break;
+
+            default:
+                targetColor = new Color32(75, 75, 75, 255); // Neutral Gray
+                break;
+        }
+
+        // Start smooth transition
+        StopAllCoroutines();
+        StartCoroutine(FadeBackground(targetColor));
+    }
+
+    private IEnumerator FadeBackground(Color32 targetColor)
+    {
+        Color startColor = background.color;
+        float t = 0f;
+
+        while (t < fadeDuration)
+        {
+            t += Time.deltaTime;
+            background.color = Color.Lerp(startColor, targetColor, t / fadeDuration);
+            yield return null;
+        }
+
+        background.color = targetColor; // ensure exact final color
     }
 
     public void ClearMarkers()
